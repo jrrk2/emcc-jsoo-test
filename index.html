@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <title>Emscripten and OCaml</title>
     <script src="_build/default/my_program.js"></script>
-    <script src="_build/default/main.bc.js"></script>
+    <div id="app"></div>
+    <div id="output"></div>
+    <div id="extra-option"></div>
+    <script src="_build/default/tabbed_dialog.bc.js"></script>
 </head>
 <body>
     <script>
         // Emscripten initializes the module asynchronously, so we need to call our OCaml main after it is ready.
         Module['onRuntimeInitialized'] = function() {
             // Now it's safe to call our OCaml code
-            main();
+            _main();
         };
     </script>
 </body>

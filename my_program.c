@@ -56,3 +56,7 @@ void myAscii(double asciif) {
   char *str = float_to_string(asciif);
   printf("Received string: %s\n", str);
 }
+
+int main() {
+  return 0;
+}

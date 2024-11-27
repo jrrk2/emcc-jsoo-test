@@ -1,7 +1,8 @@
 (executable
- (name main)
+ (name tabbed_dialog)
  (modes js)
- (libraries js_of_ocaml js_of_ocaml-ppx lwt js_of_ocaml-lwt)
+ (modules tabbed_dialog)
+ (libraries js_of_ocaml-lwt js_of_ocaml-tyxml yojson base64 cohttp-lwt-jsoo xml-light js_of_ocaml unix js_of_ocaml-ppx lwt)
  (preprocess (pps lwt_ppx js_of_ocaml-ppx))
  )
 
@@ -9,13 +10,13 @@
  (alias build_js)
  (deps my_program.c)
  (action (progn
-   (run sh -c "emcc ../../my_program.c -s WASM=1 -s EXPORTED_FUNCTIONS='[_myFunction,_myFloat,_myAscii]' -o my_program.js")
+   (run sh -c "emcc ../../my_program.c -s WASM=1 -s EXPORTED_FUNCTIONS='[_myFunction,_myFloat,_myAscii,_main]' -o my_program.js")
  ))
  (targets my_program.js my_program.wasm))
 
 (alias
  (name default)
- (deps main.bc.js my_program.js my_program.wasm))
+ (deps tabbed_dialog.bc.js my_program.js my_program.wasm))
 
 (env
  (dev
