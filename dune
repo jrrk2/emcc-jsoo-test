@@ -1,0 +1,27 @@
+(executable
+ (name main)
+ (modes js)
+ (libraries js_of_ocaml js_of_ocaml-ppx lwt js_of_ocaml-lwt)
+ (preprocess (pps lwt_ppx js_of_ocaml-ppx))
+ )
+
+(rule
+ (alias build_js)
+ (action (progn
+   (run sh -c "emcc ../../my_program.c -s WASM=1 -s EXPORTED_FUNCTIONS='[_myFunction]' -o my_program.js")
+ ))
+ (targets my_program.js my_program.wasm))
+
+(alias
+ (name default)
+ (deps main.bc.js my_program.js my_program.wasm))
+
+(env
+ (dev
+   (flags (:standard -g -w -16 -w -32 -w -52 -w -21 -w -26 -w -27 -w -37 -w -11))
+   (js_of_ocaml
+    (compilation_mode whole_program)
+    (flags --pretty --disable genprim)
+   )
+ )
+)
