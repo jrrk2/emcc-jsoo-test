@@ -7,8 +7,9 @@
 
 (rule
  (alias build_js)
+ (deps my_program.c)
  (action (progn
-   (run sh -c "emcc ../../my_program.c -s WASM=1 -s EXPORTED_FUNCTIONS='[_myFunction]' -o my_program.js")
+   (run sh -c "emcc ../../my_program.c -s WASM=1 -s EXPORTED_FUNCTIONS='[_myFunction,_myFloat,_myAscii]' -o my_program.js")
  ))
  (targets my_program.js my_program.wasm))
 
